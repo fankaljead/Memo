@@ -10,7 +10,15 @@ public class Tag extends LitePalSupport {
     private Integer id;
     private Integer name;
     private Date createTime;
+    private String color;
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     public Integer getId() {
         return id;
@@ -36,10 +44,11 @@ public class Tag extends LitePalSupport {
         this.createTime = createTime;
     }
 
-    public Tag(Integer id, Integer name, Date createTime) {
+    public Tag(Integer id, Integer name, Date createTime, String color) {
         this.id = id;
         this.name = name;
         this.createTime = createTime;
+        this.color = color;
     }
 
     public Tag() {

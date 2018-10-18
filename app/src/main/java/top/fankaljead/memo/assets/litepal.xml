@@ -32,6 +32,9 @@
     	</list>
     -->
     <list>
+        <mapping class="top.fankaljead.memo.data.Note" />
+        <mapping class="top.fankaljead.memo.data.User" />
+        <mapping class="top.fankaljead.memo.data.Tag" />
     </list>
 
     <!--

@@ -24,4 +24,8 @@ public class DateHelper {
 	public static String getMemoDate(Context context, long time) {
 		return sMemoShowDateFormat.format(new Date(time));
 	}
+
+	public static String getFormatDate(Date date) {
+		return sMemoShowDateFormat.format(date);
+	}
 }
