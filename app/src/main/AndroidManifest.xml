@@ -6,9 +6,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/memo_icon"
         android:label="@string/app_chinese_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/memo_icon_round"
         android:name="org.litepal.LitePalApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
