@@ -7,18 +7,19 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/app_chinese_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:name="org.litepal.LitePalApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".memo.MainActivity">
+        <activity android:name=".memo.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".memo.LoginActivity"></activity>
+        <activity android:name=".memo.MainActivity"></activity>
     </application>
 
 </manifest>
