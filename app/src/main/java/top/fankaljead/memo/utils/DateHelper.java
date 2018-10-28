@@ -12,7 +12,7 @@ import android.content.Context;
 public class DateHelper {
 
 	private static final SimpleDateFormat sMemoShowDateFormat = new SimpleDateFormat(
-			"M.d a h:m");
+			"yyyy年M月d日 a h:m");
 
 	private static final PrettyTime PRETTY_TIME = new PrettyTime();
 

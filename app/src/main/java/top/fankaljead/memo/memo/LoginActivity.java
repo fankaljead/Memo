@@ -41,10 +41,9 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        PrettyTime time = new PrettyTime();
-        Date date = new Date();
         btRegister.setOnClickListener(v -> {
-            Toast.makeText(this,  time.format(date), Toast.LENGTH_LONG).show();
+            intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
 
     }

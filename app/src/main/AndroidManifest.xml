@@ -5,11 +5,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/memo_icon"
         android:label="@string/app_chinese_name"
         android:roundIcon="@mipmap/memo_icon_round"
-        android:name="org.litepal.LitePalApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".memo.LoginActivity">
@@ -19,7 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".memo.MainActivity"></activity>
+        <activity android:name=".memo.MainActivity" />
+        <activity android:name=".memo.RegisterActivity" />
+        <activity android:name=".memo.NoteActivity"></activity>
     </application>
 
 </manifest>

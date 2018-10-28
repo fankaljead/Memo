@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -19,16 +20,18 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     private Context mContext;
     private List<Note> mNoteList;
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView noteContent;
-        TextView noteTime;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public CardView cardView;
+        public TextView noteContent;
+        public TextView noteTime;
+        public LinearLayout llItem;
 
         public ViewHolder(View view) {
             super(view);
             cardView = (CardView) view;
             noteContent = view.findViewById(R.id.note_content);
             noteTime = view.findViewById(R.id.note_time);
+            llItem = view.findViewById(R.id.ll_item);
         }
     }
 
@@ -58,4 +61,15 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     public int getItemCount() {
         return mNoteList.size();
     }
+
+    public void addItem(int position, Note note){
+        mNoteList.add(position, note);
+        notifyItemInserted(position);
+    }
+
+    public void removeItem(int position){
+        mNoteList.remove(position);
+        notifyItemRemoved(position);
+    }
+
 }

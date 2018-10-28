@@ -2,10 +2,22 @@
     <string name="app_name">Memo</string>
     <string name="app_chinese_name">备忘录</string>
     <string name="login_toolbar_title">登录您的备忘录</string>
+    <string name="register_toolbar_title">用户注册</string>
     <string name="login_account_hint">请输入账号</string>
     <string name="login_password_hint">请输入密码</string>
     <string name="forget_password_textview">忘记密码?</string>
     <string name="login_button">登陆</string>
     <string name="register_button">注册</string>
     <string name="login_button_width">200dp</string>
+    <string name="register_head_image">头像</string>
+    <string name="register_username">用户名</string>
+    <string name="register_email">邮箱</string>
+    <string name="register_tel">电话</string>
+    <string name="register_username_hint">请输入用户名</string>
+    <string name="register_email_hint">请输入邮箱</string>
+    <string name="register_tel_hint">请输入电话</string>
+    <string name="register_password">密码</string>
+    <string name="register_password_hint">请输入密码</string>
+    <string name="add_note_titile">编辑备忘录</string>
+    <string name="add_note_hint">在这里输入内容</string>
 </resources>

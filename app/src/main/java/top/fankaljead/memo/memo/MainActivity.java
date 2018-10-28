@@ -1,5 +1,6 @@
 package top.fankaljead.memo.memo;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -64,10 +65,12 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(v -> {
             // 可以用作消息提示
-            Snackbar.make(v, "Data deleted", Snackbar.LENGTH_LONG)
-                    .setAction("Undo", v2 -> {
-                        Toast.makeText(MainActivity.this, "Fab clicked", Toast.LENGTH_LONG).show();
-                    }).show();
+//            Snackbar.make(v, "Data deleted", Snackbar.LENGTH_LONG)
+//                    .setAction("Undo", v2 -> {
+//                        Toast.makeText(MainActivity.this, "Fab clicked", Toast.LENGTH_LONG).show();
+//                    }).show();
+            Intent intent = new Intent(MainActivity.this, NoteActivity.class);
+            startActivity(intent);
         });
 
         initialNotes();
@@ -101,4 +104,5 @@ public class MainActivity extends AppCompatActivity {
             noteList.add(notes[index]);
         }
     }
+
 }
