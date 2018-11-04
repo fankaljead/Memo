@@ -11,6 +11,7 @@
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
+            android:background="@color/memo_background"
             android:layout_height="wrap_content">
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -21,13 +22,27 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/Base.Theme.AppCompat.Light"></android.support.v7.widget.Toolbar>
 
+            <android.support.v7.widget.SearchView
+                android:id="@+id/note_searchview"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="15dp"
+
+                android:layout_marginBottom="6dp"
+                android:background="@color/memo_background"></android.support.v7.widget.SearchView>
         </android.support.design.widget.AppBarLayout>
 
-        <top.fankaljead.memo.custom.SwipeRecyclerView
+
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_height="match_parent"></top.fankaljead.memo.custom.SwipeRecyclerView>
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+
+
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
@@ -41,12 +56,24 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
+
+
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_gravity="start"
         app:menu="@menu/nav_menu"
         app:headerLayout="@layout/nav_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.design.widget.NavigationView>
+        android:layout_height="match_parent">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/tag_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="16dp"
+            android:elevation="8dp"
+            android:src="@drawable/ic_add_note"
+            app:backgroundTint="@color/memo_main_color" />
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

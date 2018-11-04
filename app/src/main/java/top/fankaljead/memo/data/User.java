@@ -3,7 +3,9 @@ package top.fankaljead.memo.data;
 import org.litepal.annotation.Column;
 import org.litepal.crud.LitePalSupport;
 
-public class User extends LitePalSupport {
+import java.io.Serializable;
+
+public class User extends LitePalSupport  implements Serializable {
     @Column(unique = true)
     private Integer id;
     private String name;

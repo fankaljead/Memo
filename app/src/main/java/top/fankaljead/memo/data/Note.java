@@ -3,23 +3,17 @@ package top.fankaljead.memo.data;
 import org.litepal.annotation.Column;
 import org.litepal.crud.LitePalSupport;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Note extends LitePalSupport {
-    @Column(unique = true)
-    private Integer id;
+public class Note extends LitePalSupport implements Serializable {
+
     @Column(defaultValue = "0")
     private Integer tagId;
-    private Date createTime;
+    private String createTime;
     private String content;
+    private String uuid;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getTagId() {
         return tagId;
@@ -29,11 +23,11 @@ public class Note extends LitePalSupport {
         this.tagId = tagId;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
@@ -45,11 +39,19 @@ public class Note extends LitePalSupport {
         this.content = content;
     }
 
-    public Note(Integer id, Integer tagId, Date createTime, String content) {
-        this.id = id;
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public Note(Integer tagId, String createTime, String content, String uuid) {
         this.tagId = tagId;
         this.createTime = createTime;
         this.content = content;
+        this.uuid = uuid;
     }
 
     public Note() {

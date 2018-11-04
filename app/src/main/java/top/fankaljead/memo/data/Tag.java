@@ -3,9 +3,10 @@ package top.fankaljead.memo.data;
 import org.litepal.annotation.Column;
 import org.litepal.crud.LitePalSupport;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Tag extends LitePalSupport {
+public class Tag extends LitePalSupport implements Serializable {
     @Column(unique = true)
     private Integer id;
     private Integer name;
