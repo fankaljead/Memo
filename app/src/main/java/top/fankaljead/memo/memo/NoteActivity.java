@@ -117,9 +117,7 @@ public class NoteActivity extends AppCompatActivity {
         intent = new Intent(NoteActivity.this, MainActivity.class);
         save();
         startActivity(intent);
-
         finish();
-
     }
 
     private void save() {

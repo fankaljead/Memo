@@ -1,26 +1,34 @@
 package top.fankaljead.memo.data;
 
-import org.litepal.annotation.Column;
 import org.litepal.crud.LitePalSupport;
 
 import java.io.Serializable;
 
 public class User extends LitePalSupport  implements Serializable {
-    @Column(unique = true)
-    private Integer id;
+    public static final Integer LOGIN = 1;
+    public static final Integer UN_LOGIN = 0;
+    private String uuid;
     private String name;
     private String email;
     private String tel;
     private String password;
     private String headPicPath;
+    private Integer isLogin;
 
-
-    public Integer getId() {
-        return id;
+    public Integer getIsLogin() {
+        return isLogin;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIsLogin(Integer isLogin) {
+        this.isLogin = isLogin;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String id) {
+        this.uuid = id;
     }
 
     public String getName() {
@@ -66,12 +74,13 @@ public class User extends LitePalSupport  implements Serializable {
     public User() {
     }
 
-    public User(Integer id, String name, String email, String tel, String password, String headPicPath) {
-        this.id = id;
+    public User(String id, String name, String email, String tel, String password, String headPicPath) {
+        this.uuid = id;
         this.name = name;
         this.email = email;
         this.tel = tel;
         this.password = password;
         this.headPicPath = headPicPath;
+        this.isLogin = UN_LOGIN;
     }
 }

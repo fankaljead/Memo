@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,11 +37,13 @@ import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.Unbinder;
 import top.fankaljead.memo.R;
 import top.fankaljead.memo.adapters.MainItemEntity;
 import top.fankaljead.memo.adapters.NoteAdapter;
 import top.fankaljead.memo.adapters.base.ItemEntity;
 import top.fankaljead.memo.data.Note;
+import top.fankaljead.memo.data.User;
 import top.fankaljead.memo.utils.DateHelper;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SearchView noteSearchView;
     private FloatingActionButton tagAdd;
+    private TextView mail;
+    private TextView name;
 
     private Note[] notes = {
 //            new Note(0, 0, new Date(), "你好"),
@@ -70,11 +75,16 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Note> noteList = new ArrayList<>();
     private NoteAdapter adapter;
+    Intent intent;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        intent = getIntent();
+        user= (User) intent.getSerializableExtra(LoginActivity.LOGIN_USER);
+        Log.d(TAG, "onCreate: user" + user.getName());
 
 
         toolbar = findViewById(R.id.toolbar);
@@ -102,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 //                    .setAction("Undo", v2 -> {
 //                        Toast.makeText(MainActivity.this, "Fab clicked", Toast.LENGTH_LONG).show();
 //                    }).show();
-            Intent intent = new Intent(MainActivity.this, NoteActivity.class);
+            intent = new Intent(MainActivity.this, NoteActivity.class);
             startActivity(intent);
             finish();
         });
@@ -110,6 +120,15 @@ public class MainActivity extends AppCompatActivity {
 //        initialNotes();
         initData();
 
+//        navView.getHeaderView(0)
+        mail = navView.getHeaderView(0).findViewById(R.id.mail);
+        name = navView.getHeaderView(0).findViewById(R.id.username);
+        mail.setText(user.getEmail());
+        name.setText(user.getName());
+
+        navView.getHeaderView(0).setOnClickListener(v -> {
+            logout(v, user);
+        });
         recyclerView = findViewById(R.id.recycler_view);
 //        GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -122,11 +141,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 //                LogUtil.v(String.valueOf(position));
-                Intent intent = new Intent(MainActivity.this, NoteActivity.class);
+                intent = new Intent(MainActivity.this, NoteActivity.class);
 //                intent.putExtra(NoteActivity.EDIT_NOTE, noteList.get(position));
                 intent.putExtra(StaticCommonData.UUID, noteList.get(position).getUuid());
                 startActivity(intent);
-//                finish();
+                finish();
             }
 
 
@@ -169,6 +188,42 @@ public class MainActivity extends AppCompatActivity {
             menuItemSelect();
         });
 
+    }
+
+    // 退出登录
+    private void logout(View v, User user) {
+        Log.d(TAG, "checkLogin: " + user.getIsLogin());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("退出登录");    //设置对话框标题
+//        builder.setIcon(android.R.drawable.btn_star);   //设置对话框标题前的图标
+
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+//                Toast.makeText(MainActivity.this, "你输入的是: " + edit.getText().toString(), Toast.LENGTH_SHORT).show();
+                user.setIsLogin(User.UN_LOGIN);
+                user.updateAll();
+                Log.d(TAG, "checkLogin: lick " + user.getIsLogin());
+                List<User> users = LitePal.findAll(User.class);
+                for (User u: users
+                     ) {
+                    Log.d(TAG, "checkLogin: get users " + u.getName() + " " + u.getIsLogin());
+                }
+                intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+//                Toast.makeText(MainActivity.this, "你点了取消", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setCancelable(true);    //设置按钮是否可以按返回键取消,false则不可以取消
+        AlertDialog dialog = builder.create();  //创建对话框
+        dialog.setCanceledOnTouchOutside(true); //设置弹出框失去焦点是否隐藏,即点击屏蔽其它地方是否隐藏
+        dialog.show();
     }
 
 
