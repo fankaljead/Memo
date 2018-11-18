@@ -11,7 +11,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -22,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,21 +31,18 @@ import com.chad.library.adapter.base.listener.SimpleClickListener;
 import org.litepal.LitePal;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.Unbinder;
 import top.fankaljead.memo.R;
 import top.fankaljead.memo.adapters.MainItemEntity;
 import top.fankaljead.memo.adapters.NoteAdapter;
 import top.fankaljead.memo.adapters.base.ItemEntity;
 import top.fankaljead.memo.data.Note;
 import top.fankaljead.memo.data.User;
-import top.fankaljead.memo.utils.DateHelper;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+    public static final String USER_UUID = "user_uuid";
 
     private Toolbar toolbar;
     private DrawerLayout mDrawerLayout;
@@ -84,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         intent = getIntent();
         user= (User) intent.getSerializableExtra(LoginActivity.LOGIN_USER);
-        Log.d(TAG, "onCreate: user" + user.getName());
+        Log.d(TAG, "onCreate: user" + user.getUuid());
 
 
         toolbar = findViewById(R.id.toolbar);
@@ -113,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
 //                        Toast.makeText(MainActivity.this, "Fab clicked", Toast.LENGTH_LONG).show();
 //                    }).show();
             intent = new Intent(MainActivity.this, NoteActivity.class);
+            intent.putExtra(USER_UUID, user.getUuid());
             startActivity(intent);
             finish();
         });
@@ -250,14 +246,17 @@ public class MainActivity extends AppCompatActivity {
 ////            noteList.add(notes[i]);
 //        }
 
-        noteList = LitePal.findAll(Note.class);
+//        noteList = LitePal.findAll(Note.class);
+        noteList = LitePal.where("userUuid=?", user.getUuid()).find(Note.class);
+        intent.putExtra(USER_UUID, user.getUuid());
 //        System.out.println("noteList.size(): " + noteList.size());
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        noteList = LitePal.findAll(Note.class);
+//        noteList = LitePal.findAll(Note.class);
+        noteList = LitePal.where("userUuid=?", user.getUuid()).find(Note.class);
     }
 
     private void showDeletePop(View view, final int index){
@@ -291,9 +290,11 @@ public class MainActivity extends AppCompatActivity {
         deletePop.showAsDropDown(view);
     }
 
+    // 初始化数据
     private void initData(){
         mainItemEntities = new ArrayList<>();
-        noteList = LitePal.findAll(Note.class);
+//        noteList = LitePal.findAll(Note.class);
+        noteList = LitePal.where("userUuid=?", user.getUuid()).find(Note.class);
         final int size = noteList.size();
         for (int i = 0; i < size; i++){
             mainItemEntities.add(new MainItemEntity(noteList.get(i).getCreateTime(), noteList.get(i).getContent()));
@@ -303,7 +304,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void searchData(String s) {
         Log.d(TAG, "onQueryTextChange: noteList + " + s);
-        noteList = LitePal.where("content like ?", "%" + s + "%").find(Note.class);
+        noteList = LitePal.where("content like ?", "%" + s + "%").
+                where("userUuid=?", user.getUuid()).find(Note.class);
         Log.d(TAG, "onQueryTextChange: noteList + " + noteList.size());
         final int size = noteList.size();
         for (int i = 0; i < size; i++){

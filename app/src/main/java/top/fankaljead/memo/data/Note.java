@@ -13,7 +13,15 @@ public class Note extends LitePalSupport implements Serializable {
     private String createTime;
     private String content;
     private String uuid;
+    private String userUuid;
 
+    public String getUserUuid() {
+        return userUuid;
+    }
+
+    public void setUserUuid(String userUuid) {
+        this.userUuid = userUuid;
+    }
 
     public Integer getTagId() {
         return tagId;
@@ -47,11 +55,12 @@ public class Note extends LitePalSupport implements Serializable {
         this.uuid = uuid;
     }
 
-    public Note(Integer tagId, String createTime, String content, String uuid) {
+    public Note(Integer tagId, String createTime, String content, String uuid, String userUuid) {
         this.tagId = tagId;
         this.createTime = createTime;
         this.content = content;
         this.uuid = uuid;
+        this.userUuid = userUuid;
     }
 
     public Note() {

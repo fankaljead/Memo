@@ -31,6 +31,7 @@ public class NoteActivity extends AppCompatActivity {
 
     public static final String EDIT_NOTE = "edit_note";
     private static final String TAG = "NoteActivity";
+    private String userUuid;
 
     @BindView(R.id.add_note_bt_back)
     ImageButton addNoteBack;
@@ -67,7 +68,8 @@ public class NoteActivity extends AppCompatActivity {
 //            addNoteTimeText.setText(DateHelper.getFormatDate(addNoteTime));
 //            note.setCreateTime(addNoteTime);
 //        }
-
+        userUuid = getIntent().getStringExtra(MainActivity.USER_UUID);
+        Log.d(TAG, "setContent: " + userUuid);
         note = setContent();
         addNoteContent.setFocusable(true);
         Calendar calendar = Calendar.getInstance();
@@ -114,16 +116,19 @@ public class NoteActivity extends AppCompatActivity {
     @OnClick(R.id.add_note_bt_back)
     public void onSavedClick() {
         Log.d(TAG, "save " + addNoteContent.getText().toString());
-        intent = new Intent(NoteActivity.this, MainActivity.class);
         save();
+        intent = new Intent(NoteActivity.this, MainActivity.class);
+
         startActivity(intent);
         finish();
     }
 
     private void save() {
         final String content = addNoteContent.getText().toString();
+
         if (content.length() != 0) {
             note.setContent(content);
+            note.setUserUuid(userUuid);
             final Calendar calendar = Calendar.getInstance();
             note.setTagId(0);
             note.setCreateTime(String.valueOf(calendar.get(Calendar.YEAR)) + "年" + String.valueOf(calendar.get(Calendar.MONTH) + 1)

@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "login: user + " + userss.get(i).getName());
         }
 
-        List<User> users = LitePal.where("email = ?", accountText).find(User.class);
+        List<User> users = LitePal.where("name = ?", accountText).find(User.class);
         if (users.size() == 0) {
             Toast.makeText(this, "您的账号不存在!", Toast.LENGTH_SHORT).show();
         } else if (users.size() == 1) {
